@@ -1,0 +1,37 @@
+@host = http://localhost:8080/api
+@uri = {{host}}/libros
+
+GET {{uri}}
+###
+
+GET {{uri}}/1
+###
+
+//Agregar un libro
+POST {{uri}}
+Content-Type: application/json
+
+{
+    "isbn": "978-0000000007",
+    "titulo": "Harry Potter",
+    "autor": "J.K. Rowling",
+    "anio_publicacion": 2024,
+    "ejemplares_disponibles": 4
+}
+###
+
+//Actualizar un libro
+PUT {{uri}}/6
+Content-Type: application/json
+
+{
+    "isbn": "978-0000000006",
+    "titulo": "Harry Potter y la piedra filosofal",
+    "autor": "J.K. Rowling",
+    "anio_publicacion": 2024,
+    "ejemplares_disponibles": 3
+}
+###
+
+//Eliminar un libro
+DELETE {{uri}}/7

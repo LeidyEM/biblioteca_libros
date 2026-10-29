@@ -1,0 +1,60 @@
+@host = http://localhost:9090/api
+@uri = {{host}}/libros
+
+### Listar libros
+GET {{uri}}
+
+### Consultar un libro
+GET {{uri}}/2
+
+//Evidencia de varios post hechos para crear varios libros
+### Crear un libro
+POST {{uri}}
+Content-Type: application/json
+
+{
+  "isbn": "978-0000000005",
+  "titulo": "Boulevard de los sueños rotos",
+  "autor": "Steven King",
+  "anio_publicacion": 2020,
+  "ejemplares_disponibles": 6
+}
+
+### Crear un libro
+POST {{uri}}
+Content-Type: application/json
+
+{
+  "isbn": "978-0000000011",
+  "titulo": "Solo Leveling",
+  "autor": "Chugong",
+  "anio_publicacion": 2020,
+  "ejemplares_disponibles": 3
+}
+
+### Crear un libro
+POST {{uri}}
+Content-Type: application/json
+
+{
+  "isbn": "978-0000000014",
+  "titulo": "Tokyo Revengers",
+  "autor": "Ken Wakui",
+  "anio_publicacion": 2022,
+  "ejemplares_disponibles": 3
+}
+
+### Actualizar un libro
+PUT {{uri}}/1
+Content-Type: application/json
+
+{
+  "isbn": "978-0000000003",
+  "titulo": "Cementerio de mascotas actualizado",
+  "autor": "Steven King M",
+  "anio_publicacion": 2024,
+  "ejemplares_disponibles": 3
+}
+
+### Eliminar un libro
+DELETE {{uri}}/6

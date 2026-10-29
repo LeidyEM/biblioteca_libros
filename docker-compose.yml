@@ -1,0 +1,45 @@
+services:
+  lemdb:
+    image: mysql:9.7
+    container_name: lemdb
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_password
+      MYSQL_DATABASE: biblioteca_libros
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./db_dump:/docker-entrypoint-initdb.d:ro
+      - ./mysql:/var/lib/mysql
+    secrets:
+      - db_password
+
+  lemdatos:
+    container_name: lemdatos
+    volumes:
+      - ./Data/public:/var/www/html/public
+      - ./Data/src:/var/www/html/src
+    build:
+      context: .
+      dockerfile: ./Data/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - lemdb
+
+  lemnegocio:
+    container_name: lemnegocio
+    volumes:
+      - ./Business/public:/var/www/html/public
+      - ./Business/src:/var/www/html/src
+    build:
+      context: .
+      dockerfile: ./Business/Dockerfile
+    ports:
+      - "9090:80"
+    depends_on:
+      - lemdatos
+
+secrets:
+  db_password:
+    file: ./db_password.txt
+
